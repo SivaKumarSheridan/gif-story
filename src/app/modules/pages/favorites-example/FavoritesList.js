@@ -1,6 +1,9 @@
 import React from "react";
 import FavoriteItem from "./FavoriteItem";
 // import "./Fav.scss";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col";
 
 export default function FavoritesList() {
   const arrayList = [
@@ -34,12 +37,16 @@ export default function FavoritesList() {
   ];
 
   return (
-    <>
+    <Container>
       <br></br>
       <h1>Favorites</h1>
       {arrayList.map((item) => {
-        return <FavoriteItem data={item} />;
+        return (
+          <Row>
+            <FavoriteItem data={item} />;
+          </Row>
+        );
       })}
-    </>
+    </Container>
   );
 }
