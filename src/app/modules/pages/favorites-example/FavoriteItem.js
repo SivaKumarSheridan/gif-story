@@ -7,7 +7,7 @@ import "./Fav.scss";
 
 export default function FavoriteItem({ data }) {
   return (
-    <Col xs={12} md={8}>
+    <>
       <h2>{data.id}</h2>
       <h2>{data.createdDate}</h2>
       <h2>{data.quote}</h2>
@@ -15,6 +15,6 @@ export default function FavoriteItem({ data }) {
       <img src={data.img2} alt="" />
       <img src={data.img3} alt="" />
       <h2>{data.isFav}</h2>
-    </Col>
+    </>
   );
 }

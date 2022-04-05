@@ -37,16 +37,20 @@ export default function FavoritesList() {
   ];
 
   return (
-    <Container>
+    <>
       <br></br>
       <h1>Favorites</h1>
-      {arrayList.map((item) => {
-        return (
-          <Row>
-            <FavoriteItem data={item} />
-          </Row>
-        );
-      })}
-    </Container>
+      <Container>
+        <Row>
+          {arrayList.map((item) => {
+            return (
+              <Col sm={4}>
+                <FavoriteItem data={item} />
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
+    </>
   );
 }
