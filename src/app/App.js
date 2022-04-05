@@ -7,6 +7,7 @@ import { Routes } from "../app/Routes";
 import { PersistGate } from "redux-persist/integration/react";
 import { LayoutSplashScreen } from './GifStorySplashScreen';
 import {IntlProvider} from "react-intl";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App({ store, persistor, basename }) {
   return (

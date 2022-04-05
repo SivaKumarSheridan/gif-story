@@ -6,13 +6,13 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import * as auth from "../../redux/authRedux";
 import { login, register } from "../../redux/authCrud";
 import userDetails from "../userDetails";
-
+import Button from 'react-bootstrap/Button'
 function Login(props) {
   const { intl } = props;
 
   const initialValues = {
-    email: "",
-    password: "",
+    email: "admin@gmail.com",
+    password: "admin",
   };
 
   const getInputClasses = (fieldname) => {
@@ -73,9 +73,6 @@ function Login(props) {
           <input
             placeholder="Email"
             type="email"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "email"
-            )}`}
             name="email"
             {...formik.getFieldProps("email")}
           />
@@ -90,21 +87,12 @@ function Login(props) {
             <input
               placeholder="Password"
               type="password"
-              className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-                "password"
-              )}`}
               name="password"
               id="password"
               {...formik.getFieldProps("password")}
             />{" "}
             &nbsp;
-            <span
-              className="input-group-append input-group-text"
-              onClick={password_show_hide}
-            >
-              <i className="fas fa-eye d-none" id="show_eye"></i>
-              <i className="fas fa-eye-slash" id="hide_eye"></i>
-            </span>
+            
           </div>
 
           {formik.touched.password && formik.errors.password ? (
@@ -113,7 +101,7 @@ function Login(props) {
             </div>
           ) : null}
         </div>
-        <div className="form-group d-flex flex-wrap justify-content-between align-items-center">
+        <div>
           <Link
             to="/auth/forgot-password"
             className="text-dark-50 text-hover-primary my-3 mr-2"
@@ -125,13 +113,13 @@ function Login(props) {
             id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}
-            className={`btn btn-primary font-weight-bold px-9 py-4 my-3`}
+            
           >
             <span>Sign In</span>
             {/* {loading && <span className="ml-3 spinner spinner-white"></span>} */}
           </button>
         </div>
-        <p className="g-my-15 g-font-size-13 text-center">Or sign in with:</p>
+        <p className="g-my-15 g-font-size-13">Or sign in with:Google</p>
       </form>
     </>
   );
