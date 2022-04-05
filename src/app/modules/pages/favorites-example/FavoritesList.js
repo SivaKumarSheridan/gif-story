@@ -43,7 +43,7 @@ export default function FavoritesList() {
       {arrayList.map((item) => {
         return (
           <Row>
-            <FavoriteItem data={item} />;
+            <FavoriteItem data={item} />
           </Row>
         );
       })}
