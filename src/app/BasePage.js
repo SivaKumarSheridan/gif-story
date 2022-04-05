@@ -7,9 +7,6 @@ const Dashboard = lazy(() =>
   import("./modules/pages/Dashboard")
 );
 
-const Fav = lazy(()=>
-import("./modules/pages/fav/Fav")
-);
 
 export default function BasePage() {
   const user = useSelector((state) => state.auth.user, shallowEqual);
@@ -19,7 +16,7 @@ export default function BasePage() {
       <Switch>
       <Redirect exact from="/" to="/dashboard" />
       <Route path="/dashboard" component={Dashboard} />
-      <Route path="/myfav" component={Fav} />
+  
         <Redirect to="error/error-v1" />
       </Switch>
     </Suspense>
