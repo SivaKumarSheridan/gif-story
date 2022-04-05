@@ -1,4 +1,5 @@
 import React from "react";
+import "./Fav.scss";
 
 export default function FavoriteItem({ data }) {
   return (

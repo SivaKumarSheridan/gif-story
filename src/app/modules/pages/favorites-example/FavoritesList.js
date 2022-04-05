@@ -1,5 +1,6 @@
 import React from "react";
 import FavoriteItem from "./FavoriteItem";
+// import "./Fav.scss";
 
 export default function FavoritesList() {
   const arrayList = [
