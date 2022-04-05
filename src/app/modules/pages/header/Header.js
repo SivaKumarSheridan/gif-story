@@ -8,6 +8,9 @@ return(
     <Link to="/logout" >
         Sign Out
     </Link>
+    <Link to="/favorites">
+    Favorites
+    </Link>
     </div>
 );
 
