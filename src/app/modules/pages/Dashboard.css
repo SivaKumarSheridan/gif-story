@@ -51,6 +51,16 @@ p{
     border-color: #FF00FF;
     padding: 10px 15px 10px 15px;
 }
+
+.toast-alert{
+    background-color: #d1e7dd;
+    margin-top: 5px;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    color: #0f5132;
+}
+
 .quotes-button:hover{
     background-color: #FFC300;
     border-color: #FFC300;

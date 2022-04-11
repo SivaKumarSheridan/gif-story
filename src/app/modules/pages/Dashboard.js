@@ -1,20 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col,  Alert } from "react-bootstrap";
 import "./Dashboard.css";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import GifMaker from "./gif-maker/GifMaker";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import axios from "axios";
 
 export default function Dashboard() {
   const [quotes, setQuotes] = useState("Hello World");
-
+  const [show, setShow] = useState(false);
   useEffect(() => {
-    setQuotes(
-      "Sample Quote dvdsvs dv ds efesewwef wef ffefefw efwefwe dskjf  dsfdsf "
-    );
+    generateQuote();
   }, []);
+
+  async function generateQuote() {
+    try {
+      fetch("https://api.quotable.io/random")
+        .then((response) => response.json())
+        .then((data) => {
+          setQuotes(data.content)
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function copyToClipboard(){
+    await navigator.clipboard.writeText(quotes);
+    setShow(true)
+    setTimeout(() => {
+      setShow(false)
+    }, 1000);
+  };
 
   return (
     <>
@@ -28,15 +47,28 @@ export default function Dashboard() {
               <p style={{ paddingTop: "10px" }}>{quotes}</p>
             </Col>
 
-            <Col xs lg="2" className="d-flex align-items-center quotes-copy">
+            <Col xs lg="3" className="d-flex align-items-center quotes-copy">
               <FontAwesomeIcon
+              onClick={copyToClipboard}
                 icon={faCopy}
                 size="2x"
                 style={{ cursor: "pointer" }}
               />
+              <div >
+                {show && (
+                  <div className="toast-alert">
+                    <strong>Copied!<i class="fa-solid fa-check"></i></strong>
+                  </div>
+                )}
+          {/* <Alert variant="success" onClose={() => setShow(false)} show={show} delay={3000} autohide>
+          <Alert.Heading>copied!</Alert.Heading>
+        </Alert> */}
+        </div>
             </Col>
           </Row>
-          <div className="default-btn quotes-button">GENERATE NEW QUOTE</div>
+          <div onClick={generateQuote} className="default-btn quotes-button">
+            GENERATE NEW QUOTE
+          </div>
         </Container>
       </div>
 

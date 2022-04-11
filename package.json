@@ -17,6 +17,7 @@
     "axios-mock-adapter": "1.18.1",
     "bluebird": "^3.7.2",
     "bootstrap": "^4.6.0",
+    "express": "^4.17.3",
     "firebase": "^8.2.5",
     "formik": "2.1.4",
     "local-storage": "^2.0.0",
