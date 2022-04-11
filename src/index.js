@@ -7,6 +7,7 @@ import * as _redux from "./redux";
 import axios from "axios";
 import store, { persistor } from "./redux/store";
 import { GifStorySplashScreenProvider } from './app/GifStorySplashScreen';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const { PUBLIC_URL } = process.env;
 _redux.mockAxios(axios);

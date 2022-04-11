@@ -1,0 +1,147 @@
+.gif-body {
+  background-color: black;
+  color: white;
+  padding-top: 50px;
+}
+
+.gif-row {
+  margin-top: 30px;
+}
+
+.gif-img {
+  width: 300px;
+  height: 300px;
+}
+
+.gif-img img {
+  width: 100%;
+  height: 100%;
+}
+
+.meme-btn {
+  background-color: #ffc300;
+  color: black;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  border-color: #ffc300;
+  padding: 10px 30px 10px 30px;
+}
+.meme-btn:hover {
+  background-color: #ff00ff;
+  border-color: #ff00ff;
+}
+.gif-list {
+  margin-top: 30px;
+}
+
+.gif-list-img {
+  width: 15vh;
+  height: 15vh;
+  margin-bottom: 30px;
+}
+
+.gif-list-img img {
+  width: 100%;
+  height: 100%;
+}
+.search{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+@media only screen and (min-width: 1001px) and (max-width: 1200px) {
+  .gif-img {
+    width: 250px;
+    height: 250px;
+  }
+}
+@media only screen and (min-width: 800px) and (max-width: 1000px) {
+  .gif-img {
+    width: 180px;
+    height: 180px;
+  }
+}
+@media only screen and (min-width: 670px) and (max-width: 799px) {
+  .gif-img {
+    width: 140px;
+    height: 140px;
+  }
+}
+@media only screen and (min-width: 450px) and (max-width: 669px) {
+  .gif-img {
+    width: 120px;
+    height: 120px;
+  }
+}
+@media only screen and (min-width: 361px) and (max-width: 449px) {
+  .gif-img {
+    width: 95px;
+    height: 95px;
+  }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 360px) {
+  .gif-img {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+.search {
+  color: black;
+  display: flex;
+  padding: 2px;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  margin: 0 0 30px;
+}
+
+input[type="search"] {
+  border: none;
+  background: transparent;
+  margin: 0;
+  width: 100%;
+  padding: 7px 8px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid transparent;
+  border-radius: inherit;
+}
+
+.search button[type="button"] {
+  
+  width: 40px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  color: black;
+  background-color: #ff00ff;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.search button[type="button"]:hover {
+  opacity: 1;
+}
+
+.search button[type="button"]:focus,
+input[type="search"]:focus {
+  outline: none;
+}
+
+.quotes-div{
+  margin-top: 30px;
+  width: 95%;
+}
+
+.quotes-div input{
+  width: 100%;
+  background: transparent;
+  color: white;
+  padding: 20px;
+  border: 0.3px dashed;
+}
+.quotes-div input[type="text"]:focus {
+ 
+  outline: none;
+}

@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Link, Switch, Redirect, Route } from "react-router-dom";
+import React from "react";
+import {  Switch, Redirect, Route } from "react-router-dom";
 import Login from "./Login";
+import Signup from "./Signup";
+import ForgotPassword from "./ForgotPassword";
+import Home from "../../pages/Home";
+
 export function AuthPage() {
   return (
     <>
       <div>
-        Welcome To Gif Story Landing Page
+        
         <Switch>
+          <Route path="/home" component={Home} />
           <Route path="/auth/login" component={Login} />
-          <Redirect from="/auth" exact={true} to="/auth/login" />
-          <Redirect to="/auth/login" />
+          <Route path="/auth/signup" component={Signup} />
+          <Route path="/auth/forgot-password" component={ForgotPassword} />
+          <Redirect from="/" exact={true} to="/home" />
+          <Redirect to="/home" />
         </Switch>
       </div>
     </>

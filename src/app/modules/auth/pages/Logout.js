@@ -3,14 +3,12 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { LayoutSplashScreen } from "../../../GifStorySplashScreen";
 import * as auth from "../../redux/authRedux";
-
+import firebase from "../../../firebase/firebase";
 class Logout extends Component {
   componentDidMount() {
-    // firebase.auth.signOut().then((response) => {
-    //   localStorage.removeItem("specId");
-    //   localStorage.removeItem("userCurrency");
+    firebase.auth.signOut().then((response) => {
        this.props.logout();
-    // });
+    });
   }
 
   render() {

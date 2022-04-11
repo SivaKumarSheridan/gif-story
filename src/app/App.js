@@ -7,7 +7,7 @@ import { Routes } from "../app/Routes";
 import { PersistGate } from "redux-persist/integration/react";
 import { LayoutSplashScreen } from './GifStorySplashScreen';
 import {IntlProvider} from "react-intl";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Header } from './modules/pages/header/Header';
 
 export default function App({ store, persistor, basename }) {
   return (
@@ -21,6 +21,7 @@ export default function App({ store, persistor, basename }) {
           <BrowserRouter basename={basename}>
                 {/* Render routes with provided `Layout`. */}
                 <IntlProvider locale="en">
+                <Header/>
                 <Routes />
                 </IntlProvider>
           </BrowserRouter>

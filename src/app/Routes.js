@@ -3,9 +3,7 @@ import { Redirect, Switch, Route } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 import BasePage from "./BasePage";
 import { Logout, AuthPage } from "./modules/auth";
-import { Header } from "./modules/pages/header/Header";
 import { Footer } from "./modules/pages/footer/Footer";
-
 export function Routes() {
   const { isAuthorized } = useSelector(
     ({ auth }) => ({
@@ -30,9 +28,8 @@ export function Routes() {
 
       {!isAuthorized ? (
         /*Redirect to `/auth` when user is not authorized*/
-        <Redirect to="/auth/login" />
+        <Redirect to="/home" />
       ) : (<>
-        <Header/>
           <BasePage />
           <Footer />
           </>

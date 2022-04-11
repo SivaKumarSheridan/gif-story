@@ -1,89 +1,113 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { connect, useDispatch } from "react-redux";
-import { FormattedMessage, injectIntl } from "react-intl";
+import { connect } from "react-redux";
+import { injectIntl } from "react-intl";
+import * as Yup from "yup";
 import * as auth from "../../redux/authRedux";
-import { login, register } from "../../redux/authCrud";
+import "./Login.css";
+import { login } from "../../redux/authCrud";
 import userDetails from "../userDetails";
-import Button from 'react-bootstrap/Button'
+import { Row, Col, Container, Alert, Spinner } from "react-bootstrap";
+import firebase from "../../../firebase/firebase";
+
 function Login(props) {
-  const { intl } = props;
-
+  const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const initialValues = {
-    email: "admin@gmail.com",
-    password: "admin",
+    email: "",
+    password: "",
   };
 
-  const getInputClasses = (fieldname) => {
-    if (formik.touched[fieldname] && formik.errors[fieldname]) {
-      return "is-invalid";
-    }
-
-    if (formik.touched[fieldname] && !formik.errors[fieldname]) {
-      return "is-valid";
-    }
-
-    return "";
-  };
-
-  function password_show_hide() {
-    var x = document.getElementById("password");
-    var show_eye = document.getElementById("show_eye");
-    var hide_eye = document.getElementById("hide_eye");
-    show_eye.classList.remove("d-none");
-    if (x.type === "password") {
-      x.type = "text";
-      show_eye.style.display = "block";
-      hide_eye.style.display = "none";
-    } else {
-      x.type = "password";
-      show_eye.style.display = "none";
-      hide_eye.style.display = "block";
-    }
-  }
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Wrong email format")
+      .min(3, "Minimum 3 symbols")
+      .max(50, "Maximum 50 symbols")
+      .required("Required"),
+    password: Yup.string()
+      .min(6, "Minimum 6 characters")
+      .max(50, "Maximum 50 characters")
+      .required("Required"),
+  });
 
   const formik = useFormik({
     initialValues,
-    // validationSchema: LoginSchema,
+    validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-      // enableLoading();
+      setLoading(true);
       try {
-        authenticateUser(setStatus, setSubmitting, values);
+        authenticateUser(setStatus, setSubmitting, values).catch((error) => {
+          setStatus(error.message);
+        });
       } catch (err) {
-        setStatus("Oops something went wrong! Please try refreshing the page");
+        setStatus(err.message);
+        setLoading(false);
       }
     },
   });
 
   async function authenticateUser(setStatus, setSubmitting, values) {
-    //userDetails.splice(0, userDetails.length);
-    login(values.email, values.password).then(({ data: { email } }) => {
-      props.login(email);
-    });
+    login(values.email, values.password)
+      .then(({ data: { email } }) => {
+        props.login(email);
+      })
+      .catch((error) => {
+        if (error.code === "auth/wrong-password")
+          setStatus(error.message + " Try Logging in with Google");
+        else setStatus(error.message);
+        setLoading(false);
+      });
+  }
+
+  async function loginWithGoogle() {
+    setGoogleLoading(true);
+    firebase
+      .socialLogin()
+      .then((response) => {
+        userDetails.push({
+          id: response.user.uid,
+          username: response.user.displayName,
+          email: response.user.email,
+        });
+        setGoogleLoading(false);
+        props.login(response.user.email);
+      })
+      .catch((error) => {
+        formik.setStatus(error.message);
+        setGoogleLoading(false);
+      });
   }
 
   return (
-    <>
-      <form
-        onSubmit={formik.handleSubmit}
-        className="form fv-plugins-bootstrap fv-plugins-framework"
-      >
-        <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="Email"
-            type="email"
-            name="email"
-            {...formik.getFieldProps("email")}
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.email}</div>
-            </div>
+    <div className="login-body">
+      <Container>
+        <h1 className="login-title">Log in to your Gif Story</h1>
+        <form onSubmit={formik.handleSubmit} className="login-form">
+          {formik.status ? (
+            <Alert
+              variant="danger"
+              onClose={() => formik.setStatus("")}
+              dismissible
+            >
+              <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+              <p>{formik.status}</p>
+            </Alert>
           ) : null}
-        </div>
-        <div className="form-group fv-plugins-icon-container">
-          <div className="input-group">
+          <div className="form-group fv-plugins-icon-container">
+            <input
+              placeholder="Email"
+              type="email"
+              name="email"
+              {...formik.getFieldProps("email")}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="error-message-container">
+                <div className="error-message">{formik.errors.email}</div>
+              </div>
+            ) : null}
+          </div>
+          <div className="form-group fv-plugins-icon-container">
             <input
               placeholder="Password"
               type="password"
@@ -92,36 +116,65 @@ function Login(props) {
               {...formik.getFieldProps("password")}
             />{" "}
             &nbsp;
-            
+            {formik.touched.password && formik.errors.password ? (
+              <div className="error-message-container">
+                <div className="error-message" style={{ marginTop: "-20px" }}>
+                  {formik.errors.password}
+                </div>
+              </div>
+            ) : null}
           </div>
+          <div>
+            <Row>
+              <Col md="auto">
+                <Link
+                  to="/auth/forgot-password"
+                  className="text-dark-50 text-hover-primary my-3 mr-2"
+                  id="kt_login_forgot"
+                >
+                  <u style={{ color: "white" }}>Forgot Password ?</u>
+                </Link>
+              </Col>
+              <Col md="auto">
+                <span>
+                  Don't have an account?{" "}
+                  <Link to="/auth/signup">
+                    {" "}
+                    <u style={{ color: "#FFC300" }}>Sign Up</u>
+                  </Link>
+                </span>
+              </Col>
+            </Row>
 
-          {formik.touched.password && formik.errors.password ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.password}</div>
+            <div className="login-btn-container">
+              <button
+                type="submit"
+                disabled={formik.isSubmitting}
+                className="login-btn"
+              >
+                <span>Sign In</span>
+                {loading && (
+                  <Spinner animation="border" style={{ marginLeft: "20px" }} />
+                )}
+              </button>
             </div>
-          ) : null}
-        </div>
-        <div>
-          <Link
-            to="/auth/forgot-password"
-            className="text-dark-50 text-hover-primary my-3 mr-2"
-            id="kt_login_forgot"
-          >
-            Forgot Password
-          </Link>
-          <button
-            id="kt_login_signin_submit"
-            type="submit"
-            disabled={formik.isSubmitting}
-            
-          >
-            <span>Sign In</span>
-            {/* {loading && <span className="ml-3 spinner spinner-white"></span>} */}
-          </button>
-        </div>
-        <p className="g-my-15 g-font-size-13">Or sign in with:Google</p>
-      </form>
-    </>
+          </div>
+          <p style={{ textAlign: "center", marginTop: "10px" }}>Or</p>
+          <div className="login-btn-container">
+            <button
+              type="button"
+              className="google-login-btn"
+              onClick={loginWithGoogle}
+            >
+              <span>Sign in with Google</span>
+              {googleLoading && (
+                <Spinner animation="border" style={{ marginLeft: "20px" }} />
+              )}
+            </button>
+          </div>
+        </form>
+      </Container>
+    </div>
   );
 }
 
