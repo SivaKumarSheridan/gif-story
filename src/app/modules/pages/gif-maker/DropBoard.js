@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import { Col } from "react-bootstrap";
 
@@ -11,14 +11,27 @@ export default function DropBoard({ id, handleBoadUpdated, url }) {
       },
     },
   });
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: "image",
-    drop: (item) => addImageToBoard(item),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: "image",
+      drop: (item) => addImageToBoard(item),
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
     }),
-  }));
+    [board]
+  );
 
+  useEffect(() => {
+    setBoard({
+      id: 1,
+      images: {
+        original: {
+          url: url,
+        },
+      },
+    });
+  }, [url]);
   async function addImageToBoard(item) {
     setBoard(item.gifDetails);
     handleBoadUpdated(id, item.gifDetails);

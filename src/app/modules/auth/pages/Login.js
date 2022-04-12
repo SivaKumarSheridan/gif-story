@@ -53,9 +53,7 @@ function Login(props) {
         props.login(email);
       })
       .catch((error) => {
-        if (error.code === "auth/wrong-password")
-          setStatus(error.message + " Try Logging in with Google");
-        else setStatus(error.message);
+        setStatus(error.message);
         setLoading(false);
       });
   }

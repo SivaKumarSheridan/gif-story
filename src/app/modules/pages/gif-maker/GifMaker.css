@@ -24,11 +24,13 @@
   margin-top: 35px;
   margin-bottom: 35px;
   border-color: #ffc300;
-  padding: 10px 30px 10px 30px;
+  padding: 10px 55px 10px 55px;
 }
+
 .meme-btn:hover {
   background-color: #ff00ff;
   border-color: #ff00ff;
+  color: white;
 }
 .gif-list {
   margin-top: 30px;
@@ -48,6 +50,13 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.edit-meme:hover{
+  background-color: #40E779;
+  border-color: #40E779;
+  color: black;
+}
+
 @media only screen and (min-width: 1001px) and (max-width: 1200px) {
   .gif-img {
     width: 250px;

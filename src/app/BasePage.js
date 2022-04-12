@@ -8,9 +8,15 @@ const Dashboard = lazy(() =>
 );
 
 const Favorites = lazy(() =>
-  import("./modules/pages/favorites-example/FavoritesList")
+  import("./modules/pages/favorites/FavoritesList")
 );
 
+const EditGif = lazy(() =>
+  import("./modules/pages/editGif/EditGif")
+);
+const Error = lazy(() =>
+  import("./modules/pages/error/Error")
+);
 
 export default function BasePage() {
   const user = useSelector((state) => state.auth.user, shallowEqual);
@@ -21,7 +27,10 @@ export default function BasePage() {
       <Redirect exact from="/" to="/dashboard" />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/favorites" component={Favorites} />
-        <Redirect to="error/error-v1" />
+      <Route path="/edit-meme" component={EditGif} />
+      <Route path="/error/404" component={Error} />
+      <Redirect to="/error/404" />
+      
       </Switch>
     </Suspense>
   );

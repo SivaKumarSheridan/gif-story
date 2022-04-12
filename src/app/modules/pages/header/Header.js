@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
@@ -6,11 +6,11 @@ import logo from "../../../assets/logo.png";
 
 export function Header() {
   const location = useLocation();
-  
-  const { isAuthorized,user } = useSelector(
+
+  const { isAuthorized, user } = useSelector(
     ({ auth }) => ({
       isAuthorized: auth.user != null,
-      user: auth.user
+      user: auth.user,
     }),
     shallowEqual
   );
@@ -20,9 +20,9 @@ export function Header() {
       <Navbar expand="md" variant="dark" className="header">
         <Navbar.Brand className="ms-5">
           <div className="header-logo">
-          <Link style={{ textDecoration: "none" }} to="/dashboard">
-            <img src={logo}/>
-          </Link>
+            <Link style={{ textDecoration: "none" }} to="/dashboard">
+              <img src={logo} />
+            </Link>
           </div>
         </Navbar.Brand>
 
@@ -31,17 +31,24 @@ export function Header() {
           {isAuthorized ? (
             <Nav>
               <Nav.Link>
-              <Link style={{ textDecoration: "none", color:"white" }} to="/">Hi {
-                  user.username
-                } </Link>
-              </Nav.Link>
-              <Nav.Link>
-                <Link style={{ textDecoration: "none", color:"white" }} to="/favorites">
-                  Favorites
+                <Link style={{ textDecoration: "none", color: "white" }} to="/">
+                  Hi {user.username}{" "}
                 </Link>
               </Nav.Link>
               <Nav.Link>
-                <Link style={{ textDecoration: "none", color: "#FFC300" }} to="/logout">
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to="/favorites"
+                >
+                  <i class="fa-solid fa-heart" style={{ color: "#FF5A5F" }}></i>{'  '}
+                  Favorites & History
+                </Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link
+                  style={{ textDecoration: "none", color: "#FFC300" }}
+                  to="/logout"
+                >
                   Sign Out
                 </Link>
               </Nav.Link>

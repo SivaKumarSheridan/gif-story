@@ -31,8 +31,16 @@ class Firebase {
   /*
       Custom Functions
       */
-  
-  async loginUser(email, password){
+
+  async getUserID() {
+    if (this.auth.currentUser) {
+      return this.auth.currentUser.uid;
+    }
+    let user = ls.get("persist:v1-gifstory-auth");
+    return JSON.parse(user?.user)?.id;
+  }
+
+  async loginUser(email, password) {
     return await this.auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -51,9 +59,9 @@ class Firebase {
 
   async socialLogin() {
     let socialMediaProvider = new app.auth.GoogleAuthProvider();
-      socialMediaProvider.setCustomParameters({
-        prompt: "select_account",
-      });
+    socialMediaProvider.setCustomParameters({
+      prompt: "select_account",
+    });
     return await this.auth
       .signInWithPopup(socialMediaProvider)
       .then((response) => {
@@ -61,8 +69,74 @@ class Firebase {
       });
   }
 
+  async insertMemeDetails(memeDetails) {
+    const userId = await this.getUserID();
+    const memeRef = firebase.db.collection(this.GIF_COLLECTION);
+    const createMeme = await memeRef.add({ ...memeDetails, userId });
+    const memeId = createMeme?.id;
+    const memeDetail = await memeRef
+      .doc(memeId)
+      .get()
+      .then((doc) => doc.data());
+    const memeDetailsId = { ...memeDetail, memeId: memeId };
+    const updatememeDetails = await memeRef
+      .doc(memeId)
+      .set(memeDetailsId)
+      .then(() => {
+        return memeDetailsId;
+      })
+      .catch((err) => {
+        console.error(err);
+        return null;
+      });
 
+    return await updatememeDetails;
+  }
 
+  async retrieveMemeList() {
+    const userId = await this.getUserID();
+    return await firebase.db
+      .collection(this.GIF_COLLECTION)
+      .where("userId", "==", userId);
+  }
+
+  async retrieveMemeDetailsById(memeId) {
+    return await firebase.db
+      .collection(this.GIF_COLLECTION)
+      .doc(memeId)
+      .get()
+      .then((response) => {
+        return response.data();
+      });
+  }
+
+  async updateMemeDetails(memeDetails) {
+    const userId = await this.getUserID();
+    const memeRef = firebase.db.collection(this.GIF_COLLECTION);
+
+    return await memeRef
+      .doc(memeDetails.memeId)
+      .update(memeDetails)
+      .then(async () => {
+        return await memeRef
+          .doc(memeDetails.memeId)
+          .get()
+          .then((doc) => doc.data());
+      })
+      .catch((err) => {
+        return err.message;
+      });
+  }
+
+  async deleteMemeDetails(memeDetails) {
+    const memeRef = firebase.db.collection(this.GIF_COLLECTION);
+    return memeRef
+      .doc(memeDetails.memeId)
+      .delete()
+      .then(() => {
+        return { status: 200 };
+      });
+  }
 }
 
 const firebase = new Firebase();
