@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { shallowEqual, useSelector } from "react-redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./GifMaker.css";
 import { GiphyFetch } from "@giphy/js-fetch-api";
@@ -27,6 +28,14 @@ export default function GifMaker({ memeDetail }) {
   const [boardImage2, setBoardImage2] = useState(memeDetails.image2);
   const [boardImage3, setBoardImage3] = useState(memeDetails.image3);
   const [quotes, setQuotes] = useState(memeDetails.quotes);
+  const { isAuthorized, user } = useSelector(
+    ({ auth }) => ({
+      isAuthorized: auth.user != null,
+      user: auth.user,
+    }),
+    shallowEqual
+  );
+
   const [board, setBoard] = useState([
     {
       id: 1,
@@ -171,11 +180,11 @@ export default function GifMaker({ memeDetail }) {
                 </div>
               </div>
             )}
-            <div className="d-flex justify-content-center">
+            {isAuthorized ? (<div className="d-flex justify-content-center">
               <div onClick={saveMeme} className="default-btn meme-btn">
                 SAVE MEME
               </div>
-            </div>
+            </div>):<br/>}
           </div>
         </Container>
       </div>
