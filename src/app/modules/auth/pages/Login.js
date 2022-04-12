@@ -43,6 +43,7 @@ function Login(props) {
       } catch (err) {
         setStatus(err.message);
         setLoading(false);
+        setSubmitting(false)
       }
     },
   });
@@ -55,6 +56,7 @@ function Login(props) {
       .catch((error) => {
         setStatus(error.message);
         setLoading(false);
+        setSubmitting(false)
       });
   }
 

@@ -16,6 +16,7 @@ import html2canvas from "html2canvas";
 import GIF from "gif.js.optimized"
 export default function FavoritesItem({ item }) {
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const updateisFavorite = () => {
     item.isFavorite = !item.isFavorite;
     firebase.updateMemeDetails(item);
@@ -29,6 +30,7 @@ export default function FavoritesItem({ item }) {
   
   const deleteMeme = () => {
     firebase.deleteMemeDetails(item);
+    setShowDeleteModal(false)
   };
 
   async function sendMemeAsText(){
@@ -58,7 +60,7 @@ export default function FavoritesItem({ item }) {
         <Row>
           <Col>
             <i
-              onClick={deleteMeme}
+              onClick={()=>setShowDeleteModal(true)}
               class="fa-solid fa-trash-can"
               style={{ color: "#FF5A5F" }}
             ></i>
@@ -106,28 +108,74 @@ export default function FavoritesItem({ item }) {
               </div>
             </div>
           </Modal.Body>
-          {/* <Modal.Footer className="modal-footer">
+        </Modal>
+
+        <Modal
+          show={showDeleteModal}
+          onHide={() => setShowDeleteModal(false)}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+
+        >
+          <Modal.Body>
+            <div id="print"  className="modal-body">
+              <div  className="fav-imgs">
+                <Row className="justify-content-md-center">
+                  <Col>
+                    <Image 
+                      fluid={true}
+                      src={item.image1 ? item.image1 : defaultImage}
+                    />
+                  </Col>
+                  <Col>
+                    <Image
+                      fluid={true}
+                      src={item.image2 ? item.image2 : defaultImage}
+                    />
+                  </Col>
+                  <Col>
+                    <Image
+                      fluid={true}
+                      src={item.image3 ? item.image3 : defaultImage}
+                    />
+                  </Col>
+                </Row>
+              </div>
+              <div>
+                <p>{item.quotes}</p>
+              </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer className="modal-footer">
             <div>
               <InputGroup className="mb-3">
-                <FormControl
-                  placeholder="Recipient's phonenumber"
-                  aria-label="Recipient's phonenumber"
-                  aria-describedby="basic-addon2"
-                  style={{width:"50%"}}
-                />
-                <i onClick={sendMemeAsText}
-                 class="fa-regular fa-paper-plane"
+                <h5 style={{marginTop:"7px"}}>Are you sure you want to Delete this meme?</h5>
+                <i onClick={deleteMeme}
+                 class="fa-solid fa-check"
                   style={{
-                    color: "black",
-                    backgroundColor: "#FFC75A",
+                    color: "#40E779",
+                    backgroundColor: "green",
                     padding: "13px",
                     borderRadius: "30px",
                     marginLeft:"15px"
                   }}
                 ></i>
+                <i onClick={()=>setShowDeleteModal(false)}
+                 class="fa-solid fa-xmark"
+                  style={{
+                    color: "white",
+                    backgroundColor: "red",
+                    padding: "13px",
+                    paddingLeft:"15px",
+                    paddingRight:"15px",
+                    borderRadius: "20px",
+                    marginLeft:"15px"
+                  }}
+                ></i>
               </InputGroup>
             </div>
-          </Modal.Footer> */}
+          </Modal.Footer>
         </Modal>
         <div className="fav-imgs">
           <Row className="justify-content-md-center">
@@ -148,7 +196,6 @@ export default function FavoritesItem({ item }) {
         <span style={{ fontWeight: "lighter", color: "#C4C4C4" }}>
           Created on{" "}
           {moment(new Date().setTime(item.creationDate))
-            .add(90, "days")
             .format("MM/DD/YYYY")}
         </span>
         <div className="fav-footer">

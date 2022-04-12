@@ -14,7 +14,7 @@ export default function Error() {
   }, []);
 
   return (
-    <Row className="justify-content-md-center">
+    <Row className="justify-content-md-center error-img">
       <Image src={errorUrl} fluid={true} />
     </Row>
   );

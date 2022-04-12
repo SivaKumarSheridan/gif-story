@@ -18,6 +18,14 @@ const Error = lazy(() =>
   import("./modules/pages/error/Error")
 );
 
+const AboutUs = lazy(() =>
+  import("./modules/pages/aboutus/AboutUs")
+);
+
+const Privacy = lazy(() =>
+  import("./modules/pages/privacy/Privacy")
+);
+
 export default function BasePage() {
   const user = useSelector((state) => state.auth.user, shallowEqual);
 
@@ -28,6 +36,8 @@ export default function BasePage() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/favorites" component={Favorites} />
       <Route path="/edit-meme" component={EditGif} />
+      <Route path="/aboutus" component={AboutUs} />
+      <Route path="/privacy" component={Privacy} />
       <Route path="/error/404" component={Error} />
       <Redirect to="/error/404" />
       

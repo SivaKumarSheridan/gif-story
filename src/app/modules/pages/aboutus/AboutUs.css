@@ -1,0 +1,25 @@
+h1{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 70px;
+    line-height: 72px;
+    }
+    
+    
+    p{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 188%;
+    }
+
+   .about-us-title{
+       margin-bottom: 50px;
+   }
+
+      .about-us{
+          margin-top: 10vh;
+          margin-bottom: 40vh;
+      }
