@@ -1,0 +1,224 @@
+.main{
+background-color: white;
+padding: 80px;
+}
+
+.main h1{
+font-family: 'Open Sans', sans-serif;
+font-style: normal;
+font-weight: bold;
+font-size: 200px;
+line-height: 220px;
+text-align: left;
+color: black;
+}
+
+.main h2{
+font-family: 'Open Sans', sans-serif;
+font-style: normal;
+font-weight: normal;
+font-size: 30px;
+line-height: 45px;
+text-align: left;
+color: black;
+padding-top:30px ;
+}
+
+@media (max-width:600px){
+    .main{
+        background-color: white;
+        padding: 10px;
+        }
+        
+        .main h1{
+        font-family: 'Open Sans', sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 100px;
+        line-height: 112px;
+        text-align: left;
+        color: black;
+        }
+        
+        .main h2{
+        font-family: 'Open Sans', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 26px;
+        text-align: left;
+        color: black;
+        padding-top:10px ;
+        }
+}
+
+.second{
+    background-color: #1B1A27;
+    padding: 100px;
+    
+}
+
+.right{
+    width: 50%;
+}
+
+.left{
+    width: 50%;
+}
+
+.left img{
+    width: 50%;
+}
+
+
+.right p{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 35px;
+    text-align: left;
+    color:white;
+}
+
+@media (max-width:600px){
+    .second{
+        background-color: #1B1A27;
+        padding: 50px;
+    }
+    
+    .right{
+        width: 100%;
+    }
+    
+    .left{
+        width: 100%;
+    }
+    
+    .left img{
+        width: 100%;
+    }
+
+    .right p{
+        font-family: 'Open Sans', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+        text-align: left;
+        color:white;
+        padding-top: 35px;
+    }
+}
+
+.works{
+padding: 100px;
+}
+
+.works h1{
+    font-family: 'Open Sans', sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        padding-bottom: 30px;
+        line-height: 26px;
+        text-align: left;
+        color: black;
+        padding-top:10px ;
+        }
+
+
+ @media (max-width:600px){
+    .works{
+        padding: 10px;
+        }
+        
+        .works h1{
+            font-family: 'Open Sans', sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 20px;
+            padding-bottom: 10px;
+            line-height: 26px;
+            text-align: left;
+            color: black;
+            padding-top:20px ;
+                }
+
+                .Card{
+                    width:100%;
+
+                }
+ }
+
+ .experience h1{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 54px;
+    text-align: left;
+    color:black;
+    }
+
+    .experience h2{
+        font-family: 'Open Sans', sans-serif;
+       font-style: normal;
+       font-weight: normal;
+       font-size: 20px;
+       line-height: 34px;
+       text-align: left;
+       color:#11877B;
+       }
+
+       .experience p{
+        font-family: 'Open Sans', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 35px;
+        text-align: left;
+        color:black;
+       }
+
+
+       @media (max-width:600px){
+
+
+
+        .experience h1{
+            
+           font-family: 'Open Sans', sans-serif;
+           font-style: normal;
+           font-weight: bold;
+           font-size: 20px;
+           line-height: 30px;
+           padding-top: 10px;
+           text-align: left;
+           color:black;
+           }
+       
+           .experience h2{
+               font-family: 'Open Sans', sans-serif;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 18px;
+              line-height: 22px;
+              text-align: left;
+              color:#11877B;
+              }
+       
+              .experience p{
+               font-family: 'Open Sans', sans-serif;
+               font-style: normal;
+               font-weight: normal;
+               font-size: 16px;
+               line-height: 20px;
+               text-align: left;
+               color:black;
+              }
+       
+       }
+ 
+
+ 

@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { connect, useDispatch } from "react-redux";
-import { FormattedMessage, injectIntl } from "react-intl";
+import { connect } from "react-redux";
+import {injectIntl } from "react-intl";
 import * as auth from "../../redux/authRedux";
-import { login, register } from "../../redux/authCrud";
-import userDetails from "../userDetails";
-import Button from 'react-bootstrap/Button'
+import { login } from "../../redux/authCrud";
+import { Container } from "react-bootstrap";
+import "./Login.css"
 function Login(props) {
   const { intl } = props;
-
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     email: "admin@gmail.com",
     password: "admin",
@@ -65,25 +65,34 @@ function Login(props) {
 
   return (
     <>
-      <form
-        onSubmit={formik.handleSubmit}
-        className="form fv-plugins-bootstrap fv-plugins-framework"
-      >
-        <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="Email"
-            type="email"
-            name="email"
-            {...formik.getFieldProps("email")}
-          />
-          {formik.touched.email && formik.errors.email ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.email}</div>
-            </div>
+      <div className="login-body">
+      <Container>
+        <h1 className="login-title">Log in to your Portfolio</h1>
+        <form onSubmit={formik.handleSubmit} className="login-form">
+          {formik.status ? (
+            <Alert
+              variant="danger"
+              onClose={() => formik.setStatus("")}
+              dismissible
+            >
+              <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+              <p>{formik.status}</p>
+            </Alert>
           ) : null}
-        </div>
-        <div className="form-group fv-plugins-icon-container">
-          <div className="input-group">
+          <div className="form-group fv-plugins-icon-container">
+            <input
+              placeholder="Email"
+              type="email"
+              name="email"
+              {...formik.getFieldProps("email")}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="error-message-container">
+                <div className="error-message">{formik.errors.email}</div>
+              </div>
+            ) : null}
+          </div>
+          <div className="form-group fv-plugins-icon-container">
             <input
               placeholder="Password"
               type="password"
@@ -92,35 +101,33 @@ function Login(props) {
               {...formik.getFieldProps("password")}
             />{" "}
             &nbsp;
-            
+            {formik.touched.password && formik.errors.password ? (
+              <div className="error-message-container">
+                <div className="error-message" style={{ marginTop: "-20px" }}>
+                  {formik.errors.password}
+                </div>
+              </div>
+            ) : null}
           </div>
-
-          {formik.touched.password && formik.errors.password ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.password}</div>
-            </div>
-          ) : null}
-        </div>
-        <div>
-          <Link
-            to="/auth/forgot-password"
-            className="text-dark-50 text-hover-primary my-3 mr-2"
-            id="kt_login_forgot"
-          >
-            Forgot Password
-          </Link>
-          <button
-            id="kt_login_signin_submit"
-            type="submit"
-            disabled={formik.isSubmitting}
+          <div>
             
-          >
-            <span>Sign In</span>
-            {/* {loading && <span className="ml-3 spinner spinner-white"></span>} */}
-          </button>
-        </div>
-        <p className="g-my-15 g-font-size-13">Or sign in with:Google</p>
-      </form>
+            <div className="login-btn-container">
+              <button
+                type="submit"
+                disabled={formik.isSubmitting}
+                className="login-btn"
+              >
+                <span>Sign In</span>
+                {loading && (
+                  <Spinner animation="border" style={{ marginLeft: "20px" }} />
+                )}
+              </button>
+            </div>
+          </div>
+          
+        </form>
+      </Container>
+    </div>
     </>
   );
 }

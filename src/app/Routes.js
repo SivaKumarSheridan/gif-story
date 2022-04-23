@@ -32,9 +32,9 @@ export function Routes() {
         /*Redirect to `/auth` when user is not authorized*/
         <Redirect to="/auth/login" />
       ) : (<>
-        <Header/>
+        
           <BasePage />
-          <Footer />
+          
           </>
       )}
     </Switch>

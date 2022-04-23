@@ -18,7 +18,7 @@ const initialAuthState = {
 };
 
 export const reducer = persistReducer(
-  { storage, key: "v1-gifstory-auth", whitelist: ["user", "authToken"] },
+  { storage, key: "v1-portfolio-auth", whitelist: ["user", "authToken"] },
   (state = initialAuthState, action) => {
     switch (action.type) {
       case actionTypes.Login: {

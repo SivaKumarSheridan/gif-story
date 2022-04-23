@@ -7,8 +7,14 @@ const Dashboard = lazy(() =>
   import("./modules/pages/Dashboard")
 );
 
-const Favorites = lazy(() =>
-  import("./modules/pages/favorites-example/FavoritesList")
+
+const About = lazy(() =>
+  import("./modules/pages/about/About")
+);
+
+
+const Contact = lazy(() =>
+  import("./modules/pages/contact/Contact")
 );
 
 
@@ -18,9 +24,10 @@ export default function BasePage() {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
-      <Redirect exact from="/" to="/dashboard" />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/favorites" component={Favorites} />
+      <Redirect exact from="/" to="/home" />
+      <Route path="/home" component={Dashboard} />
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
         <Redirect to="error/error-v1" />
       </Switch>
     </Suspense>
